@@ -24,8 +24,8 @@ const usdtContract = new ethers.Contract(USDT_ADDRESS, ERC20_ABI, wallet);
 // Function to get ETH balance
 async function getEthBalance() {
     const balance = await provider.getBalance(MY_WALLET_ADDRESS);
-    
-    // Ensure balance is a BigNumber, then format it to Ether
+
+    // Ensure balance is a BigNumber and format it to Ether
     const ethBalance = ethers.formatUnits(balance, 18); // Convert from wei to ether
     return ethBalance;
 }
@@ -33,12 +33,11 @@ async function getEthBalance() {
 // Function to get USDT balance
 async function getUsdtBalance() {
     const balance = await usdtContract.balanceOf(MY_WALLET_ADDRESS);
-    
-    // Ensure balance is a BigNumber, then format it to USDT units
+
+    // Ensure balance is a BigNumber and format it to USDT units
     const usdtBalance = ethers.formatUnits(balance, 6); // USDT has 6 decimals
     return usdtBalance;
 }
-
 
 // Block known sweeper bots (you can add more checks based on patterns you observe)
 async function blockBot(transaction) {
