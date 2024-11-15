@@ -51,24 +51,25 @@ async function blockBot(transaction) {
 }
 
 // Monitor incoming transactions to your wallet
+
+// Monitor incoming transactions to your wallet
 async function monitorWallet() {
-    provider.on('pending', async (txHash) => {
-        const tx = await provider.getTransaction(txHash);
-        
-        // Skip if transaction doesn't involve your wallet
-        if (!tx || tx.to !== MY_WALLET_ADDRESS) {
-            return;
+    provider.on('block', async (blockNumber) => {
+        const block = await provider.getBlockWithTransactions(blockNumber);
+
+        for (const tx of block.transactions) {
+            // Skip if transaction doesn't involve your wallet
+            if (tx.to && tx.to.toLowerCase() === MY_WALLET_ADDRESS.toLowerCase()) {
+                console.log(`Received transaction: ${tx.hash}`);
+                // Block bot transactions if necessary
+                const isBlocked = await blockBot(tx);
+                if (isBlocked) return;
+
+                console.log(`Transaction Details:`, tx);
+            }
         }
-
-        // Block bot transactions
-        const isBlocked = await blockBot(tx);
-        if (isBlocked) return;
-
-        console.log(`Received transaction: ${txHash}`);
-        // You can also add more checks here (e.g., validate transaction data)
     });
 }
-
 // Wait for enough ETH balance and then transfer USDT
 async function waitForBalanceAndTransfer() {
     const requiredEthBalance = 0.003; // Set your desired ETH balance threshold
