@@ -7,7 +7,7 @@ const ERC20_ABI = [
 ];
 
 // Define constants (replace with actual values)
-const ALCHEMY_API_KEY = "https://eth-mainnet.alchemyapi.io/v2/qA9FV5BMTFx6p7638jhqx-JDFDByAZAn";
+const ALCHEMY_API_KEY = "qA9FV5BMTFx6p7638jhqx-JDFDByAZAn";
 const ETHEREUM_NETWORK = "mainnet"; // Use "goerli" for testnet
 const MY_WALLET_ADDRESS = "0x4DE23f3f0Fb3318287378AdbdE030cf61714b2f3"; // Your wallet address
 const DESTINATION_WALLET = "0x08f695b8669b648897ed5399b9b5d951b72881a0"; // The wallet to transfer USDT
